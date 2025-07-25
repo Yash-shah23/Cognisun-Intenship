@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI FAQ Assistant</title>
+  <style>
+    body { font-family: Arial; margin: 2em; background: #f9f9f9; }
+    h1 { color: #333; }
+    form { margin-bottom: 2em; }
+    textarea { width: 100%; height: 80px; margin-top: 5px; }
+    .entry { background: #fff; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+    .question { font-weight: bold; }
+    .answer { margin-top: 5px; color: #333; }
+  </style>
+</head>
+<body>
+  <h1>Ask a Question</h1>
+  <form action="/ask" method="post">
+    <label>Your Question:</label><br>
+    <textarea name="question" required></textarea><br>
+    <button type="submit">Ask</button>
+  </form>
+
+  <h2>Previous Questions</h2>
+  {% for entry in history %}
+    <div class="entry">
+      <div class="question">Q: {{ entry.question }}</div>
+      <div class="answer">A: {{ entry.answer }}</div>
+    </div>
+  {% endfor %}
+</body>
+</html>

@@ -1,0 +1,138 @@
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #202123; /* Darker background for the overall page */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure it takes full viewport height */
+  color: #e0e0e0; /* Default text color */
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh; /* Slightly less than 100vh to give some margin */
+  max-width: 500px; /* Increased max-width for a more expansive feel */
+  margin: auto;
+  background-color: #343541;
+  border-radius: 12px; /* Slightly more rounded corners */
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+}
+
+.chat-header {
+  background-color: #282a36; /* A slightly different dark shade */
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  font-size: 24px; /* Larger header font */
+  font-weight: 700; /* Bolder font */
+  border-bottom: 1px solid #3a3c4a; /* Subtle border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+.chat-window {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Increased gap between messages */
+  background-color: #343541;
+  scroll-behavior: smooth; /* Smooth scrolling */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.chat-window::-webkit-scrollbar {
+    display: none;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end; /* Align bubbles to the bottom for multi-line messages */
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.message.bot {
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 70%; /* Slightly smaller max-width for better readability */
+  padding: 14px 18px; /* Increased padding */
+  border-radius: 20px; /* More rounded bubbles */
+  line-height: 1.6; /* Improved line height */
+  font-size: 16px; /* Slightly larger font size */
+  white-space: pre-wrap;
+  word-wrap: break-word; /* Ensure long words break correctly */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for bubbles */
+}
+
+.message.user .bubble {
+  background: linear-gradient(135deg, #10a37f, #0d8f6c); /* Green gradient */
+  color: #fff;
+  border-bottom-right-radius: 6px; /* Slightly less rounded on one corner */
+}
+
+.message.bot .bubble {
+  background: linear-gradient(135deg, #444654, #3a3c4a); /* Dark grey gradient */
+  color: #eee;
+  border-bottom-left-radius: 6px; /* Slightly less rounded on one corner */
+}
+
+.input-area {
+  display: flex;
+  align-items: center; /* Vertically align items */
+  padding: 25px;
+  border-top: 1px solid #2d2d30;
+  background-color: #40414f;
+  gap: 10px; /* Gap between textarea and button */
+}
+
+textarea {
+  flex: 1;
+  resize: none;
+  border: none;
+  padding: 14px;
+  border-radius: 8px; /* More rounded textarea */
+  font-size: 16px;
+  background-color: #202123;
+  color: white;
+ 
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3); /* Inner shadow */
+  transition: all 0.2s ease-in-out;
+}
+
+textarea:focus {
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 2px #40414f; /* Highlight on focus */
+}
+
+button {
+  padding: 12px 28px; /* Increased padding for a larger button */
+  font-size: 16px;
+  background: linear-gradient(135deg, #10a37f, #0d8f6c); /* Green gradient */
+  color: white;
+  border: none;
+  border-radius: 8px; /* More rounded button */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background: linear-gradient(135deg, #0d8f6c, #0a7a5a); /* Darker gradient on hover */
+  transform: translateY(-1px); /* Slight lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(0); /* Press effect */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}

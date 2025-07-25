@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #eef3f7;
+}
+
+.app-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.upload-box {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.upload-box input[type="file"] {
+  font-size: 14px;
+  color: #333;
+}
+
+.upload-box button {
+  padding: 8px 14px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.upload-box button:hover {
+  background: royalblue;
+}
+
+.status {
+  text-align: center;
+  font-size: 14px;
+  margin: 10px 0;
+  color: #555;
+}
+
+.chat-box {
+  background: #f1f3f5;
+  padding: 12px;
+  min-height: 250px;
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.message {
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 90%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.message.user {
+  background-color: #d1e7dd;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.message.bot {
+  background-color: #fff3cd;
+  margin-right: auto;
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.input-area button {
+  padding: 10px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.input-area button:hover {
+  background: royalblue;
+}

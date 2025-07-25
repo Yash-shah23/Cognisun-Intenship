@@ -1,0 +1,103 @@
+Patient_ID,Patient_Name,Age,Gender,Condition,Procedure,Cost,Length_of_Stay,Readmission,Outcome,Satisfaction
+1,Lilly Acevedo,45,Female,Heart Disease,Angioplasty,15000,5,No,Recovered,4
+2,Dakari West,60,Male,Diabetes,Insulin Therapy,2000,3,Yes,Stable,3
+3,Remi Norman,32,Female,Fractured Arm,X-Ray and Splint,500,1,No,Recovered,5
+4,Aziel Mercado,75,Male,Stroke,CT Scan and Medication,10000,7,Yes,Stable,2
+5,Mckinley Wang,50,Female,Cancer,Surgery and Chemotherapy,25000,10,No,Recovered,4
+6,Cohen McLean,68,Male,Hypertension,Medication and Counseling,1000,2,No,Stable,4
+7,Sky Hall,55,Female,Appendicitis,Appendectomy,8000,4,No,Recovered,3
+8,Thomas Hebert,40,Male,Fractured Leg,Cast and Physical Therapy,3000,6,No,Recovered,4
+9,Kyleigh White,70,Female,Heart Attack,Cardiac Catheterization,18000,8,Yes,Stable,2
+10,Aiden Gillespie,25,Male,Allergic Reaction,Epinephrine Injection,100,1,No,Recovered,5
+11,Alianna Calhoun,48,Female,Respiratory Infection,Antibiotics and Rest,800,2,No,Stable,4
+12,Gary Blackburn,65,Male,Prostate Cancer,Radiation Therapy,20000,9,No,Recovered,3
+13,Frida Schaefer,30,Female,Childbirth,Delivery and Postnatal Care,12000,3,No,Recovered,4
+14,Ishaan Kline,52,Male,Kidney Stones,Lithotripsy,6000,4,No,Recovered,3
+15,Sevyn Chung,58,Female,Osteoarthritis,Physical Therapy and Pain Management,4000,5,No,Stable,4
+16,Ira Tucker,55,Female,Heart Disease,Angioplasty,15000,6,Yes,Recovered,3
+17,Esther Gates,62,Male,Diabetes,Insulin Therapy,2000,4,No,Stable,4
+18,Ermias Finley,35,Female,Fractured Arm,X-Ray and Splint,500,2,Yes,Recovered,5
+19,Jovie Montgomery,78,Male,Stroke,CT Scan and Medication,10000,8,No,Stable,2
+20,Maximiliano Lim,53,Female,Cancer,Surgery and Chemotherapy,25000,11,Yes,Recovered,4
+21,Giavanna Burton,72,Male,Hypertension,Medication and Counseling,1000,3,No,Stable,4
+22,Zander Bryant,60,Female,Appendicitis,Appendectomy,8000,5,Yes,Recovered,3
+23,Parker Enriquez,45,Male,Fractured Leg,Cast and Physical Therapy,3000,7,No,Recovered,4
+24,Elisha Walsh,75,Female,Heart Attack,Cardiac Catheterization,18000,9,Yes,Stable,2
+25,Leia Good,28,Male,Allergic Reaction,Epinephrine Injection,100,2,No,Recovered,5
+26,Davian Tapia,52,Female,Respiratory Infection,Antibiotics and Rest,800,3,No,Stable,4
+27,Michaela Pearson,67,Male,Prostate Cancer,Radiation Therapy,20000,10,No,Recovered,3
+28,Gunner Winters,35,Female,Childbirth,Delivery and Postnatal Care,12000,4,No,Recovered,4
+29,Kataleya Beil,50,Male,Kidney Stones,Lithotripsy,6000,5,No,Recovered,3
+30,Ariel Alvarado,60,Female,Osteoarthritis,Physical Therapy and Pain Management,4000,6,No,Stable,4
+31,Blake Galindo,48,Female,Heart Disease,Angioplasty,15000,7,Yes,Recovered,4
+32,Salvatore Hurley,65,Male,Diabetes,Insulin Therapy,2000,5,No,Stable,3
+33,Rylan Sandoval,30,Female,Fractured Arm,X-Ray and Splint,500,3,No,Recovered,5
+34,Brantley Nguyen,70,Male,Stroke,CT Scan and Medication,10000,9,Yes,Stable,2
+35,Nova Snyder,55,Female,Cancer,Surgery and Chemotherapy,25000,12,No,Recovered,4
+36,Thiago Frank,68,Male,Hypertension,Medication and Counseling,1000,4,No,Stable,4
+37,Dior Norris,45,Female,Appendicitis,Appendectomy,8000,6,No,Recovered,3
+38,Cairo Singh,40,Male,Fractured Leg,Cast and Physical Therapy,3000,8,No,Recovered,4
+39,Vivienne McCormick,78,Female,Heart Attack,Cardiac Catheterization,18000,10,Yes,Stable,2
+40,Jasiah Herman,25,Male,Allergic Reaction,Epinephrine Injection,100,3,No,Recovered,5
+41,Paulina Wiggins,52,Female,Respiratory Infection,Antibiotics and Rest,800,4,No,Stable,4
+42,Azariah Kim,58,Male,Prostate Cancer,Radiation Therapy,20000,11,No,Recovered,3
+43,Gabriella English,32,Female,Childbirth,Delivery and Postnatal Care,12000,5,No,Recovered,4
+44,Junior Parsons,55,Male,Kidney Stones,Lithotripsy,6000,6,No,Recovered,3
+45,Maia Valencia,65,Female,Osteoarthritis,Physical Therapy and Pain Management,4000,7,No,Stable,4
+46,Dax Green,55,Female,Heart Disease,Angioplasty,15000,8,Yes,Recovered,3
+47,Zoe Travis,62,Male,Diabetes,Insulin Therapy,2000,6,No,Stable,4
+48,Willie Barnes,35,Female,Fractured Arm,X-Ray and Splint,500,4,Yes,Recovered,5
+49,Liliana Zamora,78,Male,Stroke,CT Scan and Medication,10000,10,No,Stable,2
+50,Quentin Herring,53,Female,Cancer,Surgery and Chemotherapy,25000,13,Yes,Recovered,4
+51,Denver Doyle,72,Male,Hypertension,Medication and Counseling,1000,5,No,Stable,4
+52,Kashton Arellano,60,Female,Appendicitis,Appendectomy,8000,7,Yes,Recovered,3
+53,Faye Ward,45,Male,Fractured Leg,Cast and Physical Therapy,3000,9,No,Recovered,4
+54,Jameson Cruz,75,Female,Heart Attack,Cardiac Catheterization,18000,11,Yes,Stable,2
+55,Claire Vaughn,28,Male,Allergic Reaction,Epinephrine Injection,100,4,No,Recovered,5
+56,Remy Atkins,52,Female,Respiratory Infection,Antibiotics and Rest,800,5,No,Stable,4
+57,Mina Martin,67,Male,Prostate Cancer,Radiation Therapy,20000,12,No,Recovered,3
+58,Mateo Dominguez,35,Female,Childbirth,Delivery and Postnatal Care,12000,6,No,Recovered,4
+59,Raegan McFarland,50,Male,Kidney Stones,Lithotripsy,6000,7,No,Recovered,3
+61,Dane Compton,48,Female,Heart Disease,Angioplasty,15000,9,Yes,Recovered,4
+62,Elina Valentine,65,Male,Diabetes,Insulin Therapy,2000,7,No,Stable,3
+63,Demetrius Andersen,30,Female,Fractured Arm,X-Ray and Splint,500,5,No,Recovered,5
+64,Zoie Rose,70,Male,Stroke,CT Scan and Medication,10000,11,Yes,Stable,2
+65,Hayden Johnson,55,Female,Cancer,Surgery and Chemotherapy,25000,14,No,Recovered,4
+66,Emma Macias,68,Male,Hypertension,Medication and Counseling,1000,6,No,Stable,4
+67,Moshe Gibbs,45,Female,Appendicitis,Appendectomy,8000,8,No,Recovered,3
+68,Carter Benton,40,Male,Fractured Leg,Cast and Physical Therapy,3000,10,No,Recovered,4
+69,Jamal Richards,78,Female,Heart Attack,Cardiac Catheterization,18000,12,Yes,Stable,2
+70,Trinity Bartlett,25,Male,Allergic Reaction,Epinephrine Injection,100,5,No,Recovered,5
+71,Kace Dickson,52,Female,Respiratory Infection,Antibiotics and Rest,800,6,No,Stable,4
+72,Emmalynn Brock,58,Male,Prostate Cancer,Radiation Therapy,20000,13,No,Recovered,3
+73,Julio Blevins,32,Female,Childbirth,Delivery and Postnatal Care,12000,7,No,Recovered,4
+74,Aila Vasquez,55,Male,Kidney Stones,Lithotripsy,6000,8,No,Recovered,3
+75,Rowan Blevins,65,Female,Osteoarthritis,Physical Therapy and Pain Management,4000,9,No,Stable,4
+76,Aila Jones,55,Female,Heart Disease,Angioplasty,15000,10,Yes,Recovered,3
+77,William Camacho,62,Male,Diabetes,Insulin Therapy,2000,8,No,Stable,4
+78,Armani Phelps,35,Female,Fractured Arm,X-Ray and Splint,500,6,Yes,Recovered,5
+79,Hamza Beltran,78,Male,Stroke,CT Scan and Medication,10000,12,No,Stable,2
+80,Kaydence McCarthy,53,Female,Cancer,Surgery and Chemotherapy,25000,15,Yes,Recovered,4
+81,Devin Leblanc,72,Male,Hypertension,Medication and Counseling,1000,7,No,Stable,4
+82,Novalee McCarty,60,Female,Appendicitis,Appendectomy,8000,9,Yes,Recovered,3
+83,Blaise Lyons,45,Male,Fractured Leg,Cast and Physical Therapy,3000,11,No,Recovered,4
+84,Kenzie Bautista,75,Female,Heart Attack,Cardiac Catheterization,18000,13,Yes,Stable,2
+85,Raul Garner,28,Male,Allergic Reaction,Epinephrine Injection,100,6,No,Recovered,5
+86,Jacqueline Fletcher,52,Female,Respiratory Infection,Antibiotics and Rest,800,7,No,Stable,4
+87,Jay Zhang,67,Male,Prostate Cancer,Radiation Therapy,20000,14,No,Recovered,3
+88,Sarai Armstrong,35,Female,Childbirth,Delivery and Postnatal Care,12000,8,No,Recovered,4
+89,Grant Orozco,50,Male,Kidney Stones,Lithotripsy,6000,9,No,Recovered,3
+90,Renata Dudley,60,Female,Osteoarthritis,Physical Therapy and Pain Management,4000,10,No,Stable,4
+91,Colter Meyer,48,Female,Heart Disease,Angioplasty,15000,11,Yes,Recovered,4
+92,Sara Morrow,65,Male,Diabetes,Insulin Therapy,2000,9,No,Stable,3
+93,Kyree O’Donnell,30,Female,Fractured Arm,X-Ray and Splint,500,7,No,Recovered,5
+94,Bellamy Burton,70,Male,Stroke,CT Scan and Medication,10000,13,Yes,Stable,2
+95,Zander David,55,Female,Cancer,Surgery and Chemotherapy,25000,16,No,Recovered,4
+96,Haylee Johns,68,Male,Hypertension,Medication and Counseling,1000,8,No,Stable,4
+97,Joziah Ray,45,Female,Appendicitis,Appendectomy,8000,10,No,Recovered,3
+98,Ruth Guerra,40,Male,Fractured Leg,Cast and Physical Therapy,3000,12,No,Recovered,4
+99,Leland Sandoval,78,Female,Heart Attack,Cardiac Catheterization,18000,14,Yes,Stable,2
+100,Elsie McClure,25,Male,Allergic Reaction,Epinephrine Injection,100,7,No,Recovered,5
+101,Reese Lim,52,Female,Respiratory Infection,Antibiotics and Rest,800,8,No,Stable,4
+102,Giavanna Estrada,58,Male,Prostate Cancer,Radiation Therapy,20000,15,No,Recovered,3
+,,,,,,,,,,

@@ -1,0 +1,217 @@
+/* src/styles/Chat.css */
+
+/* Import your variables file first. This makes sure all your color, font, and spacing variables are available. */
+@import './variables.css';
+
+/* --- Chat Window Container --- */
+/* This is the main area where messages are displayed. */
+.chat-window {
+  flex-grow: 1; /* Essential for responsiveness: makes it take all available vertical space */
+  padding: var(--spacing-md); /* Padding around the messages */
+  overflow-y: auto; /* Enables vertical scrolling when content exceeds its height */
+  background-color: var(--chat-window-bg); /* Background color from variables */
+  display: flex; /* Use flexbox for message layout */
+  flex-direction: column; /* Stack messages vertically */
+  gap: var(--spacing-sm); /* Space between individual message bubbles */
+  scroll-behavior: smooth; /* Smooth scrolling animation when new messages arrive */
+  transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+}
+
+/* --- Custom Scrollbar Styling (for Webkit browsers like Chrome, Safari) --- */
+/* Makes the scrollbar look nicer and match the theme. */
+.chat-window::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.chat-window::-webkit-scrollbar-track {
+  background: var(--chat-window-bg); /* Background of the scrollbar track */
+}
+
+.chat-window::-webkit-scrollbar-thumb {
+  background-color: var(--border-color); /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  border: 2px solid var(--chat-window-bg); /* Border around the thumb, matching window background */
+}
+
+/* --- Message Wrapper for Alignment --- */
+/* This div wraps each message bubble to control its horizontal alignment (left/right). */
+.message-wrapper {
+  display: flex; /* Make it a flex container */
+  width: 100%; /* Make it take the full width of the chat window */
+  /* Default alignment for bot messages (flex-start) */
+  justify-content: flex-start;
+}
+
+.user-message-wrapper {
+  justify-content: flex-end; /* Overrides default to push user message to the right */
+}
+
+.bot-message-wrapper {
+  /* No change needed, as justify-content: flex-start is the default */
+}
+
+/* --- Individual Message Bubble Styling --- */
+.message {
+  padding: var(--spacing-sm) var(--spacing-md); /* Padding inside the message bubble */
+  border-radius: 20px; /* Rounded corners for the message bubble */
+  max-width: 75%; /* Messages won't take up more than 75% of the chat window width */
+  word-wrap: break-word; /* Ensures long words wrap to the next line */
+  font-size: var(--font-size-base); /* Base font size from variables */
+  line-height: 1.4; /* Line height for readability */
+  box-shadow: 0 1px 3px var(--shadow-light); /* Subtle shadow for depth */
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for dark mode */
+}
+
+.user-message {
+  background-color: var(--user-message-bg); /* User message background color */
+  color: var(--text-dark); /* User message text color */
+  border-bottom-right-radius: 5px; /* Slightly sharper corner on the "user" side for visual distinction */
+}
+
+.bot-message {
+  background-color: var(--bot-message-bg); /* Bot message background color */
+  color: var(--text-dark); /* Bot message text color */
+  border: 1px solid var(--border-color); /* Subtle border for bot messages */
+  border-bottom-left-radius: 5px; /* Slightly sharper corner on the "bot" side */
+}
+
+/* --- Markdown Styling within Messages --- */
+/* Styles for content rendered by react-markdown */
+.message p {
+  margin: 0; /* Remove default paragraph margins */
+}
+
+.message pre {
+  background-color: rgba(0, 0, 0, 0.05); /* Light background for code blocks in light mode */
+  padding: var(--spacing-xs); /* Padding inside code blocks */
+  border-radius: 5px; /* Rounded corners for code blocks */
+  overflow-x: auto; /* Enable horizontal scrolling for long code lines */
+  font-size: var(--font-size-small); /* Smaller font for code */
+}
+
+/* Dark mode override for code block background */
+body.dark-mode .message pre {
+  background-color: rgba(255, 255, 255, 0.08); /* Lighter background for code blocks in dark mode */
+}
+
+.message code {
+  font-family: monospace; /* Monospaced font for inline code */
+}
+
+.message ul, .message ol {
+  padding-left: 20px; /* Indent lists */
+  margin: var(--spacing-xs) 0; /* Space above/below lists */
+}
+
+.message li {
+  margin-bottom: var(--spacing-xs); /* Space between list items */
+}
+
+/* --- Message Input Form --- */
+/* Container for the text input and send button. */
+.message-input-form {
+  display: flex;
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.message-input-form input[type="text"] {
+  flex-grow: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--input-border);
+  border-radius: 9px; /* <--- CHANGED THIS LINE FROM 25px TO 7px */
+  font-size: var(--font-size-base);
+  outline: none;
+  background-color: var(--input-bg);
+  color: var(--text-dark);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.message-input-form input[type="text"]:focus {
+  border-color: var(--primary-color); /* Highlight border on focus */
+  box-shadow: 0 0 0 3px var(--primary-color)20; /* Subtle shadow/glow on focus */
+}
+
+.message-input-form button {
+  background-color: var(--button-bg); /* Button background color */
+  color: var(--button-text); /* Button text color */
+  border: none; /* No border for the button */
+  border-radius: 25px; /* Highly rounded button */
+  padding: var(--spacing-sm) var(--spacing-lg); /* Padding inside the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: var(--font-size-base); /* Font size for button text */
+  font-weight: 500; /* Medium font weight */
+  transition: background-color 0.3s ease, transform 0.1s ease, color 0.3s ease, filter 0.3s ease; /* Smooth transitions for hover/active states and dark mode */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px; /* Minimum width for the button */
+}
+
+.message-input-form button:hover:not(:disabled) {
+  filter: brightness(0.9); /* Slightly darken button on hover in light mode */
+  transform: translateY(-1px); /* Slight lift effect on hover */
+}
+
+/* Dark mode specific hover effect for button */
+body.dark-mode .message-input-form button:hover:not(:disabled) {
+  filter: brightness(1.1); /* Slightly brighten button on hover in dark mode */
+}
+
+.message-input-form button:active:not(:disabled) {
+  transform: translateY(0); /* Press effect */
+}
+
+.message-input-form button:disabled {
+  background-color: #ccc; /* Grey background when disabled */
+  cursor: not-allowed; /* Not-allowed cursor when disabled */
+  opacity: 0.7; /* Slightly transparent when disabled */
+}
+
+/* --- Typing Indicator --- */
+/* Styling for the animated "..." indicator when the bot is typing. */
+.typing-indicator {
+  display: flex; /* Use flexbox for the dots */
+  align-items: flex-end; /* Align dots at the bottom of their container */
+  gap: 3px; /* Space between dots */
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--bot-message-bg); /* Matches bot message background */
+  border: 1px solid var(--border-color); /* Matches bot message border */
+  border-radius: 20px;
+  max-width: 100px; /* Limit width of the indicator bubble */
+  box-shadow: 0 1px 3px var(--shadow-light);
+  margin-left: var(--spacing-sm); /* Indent slightly to resemble a bot message */
+  align-self: flex-start; /* Align on the left side of the chat window */
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.typing-indicator span {
+  width: 8px; /* Size of each dot */
+  height: 8px; /* Size of each dot */
+  background-color: var(--border-color); /* Color of the dots */
+  border-radius: 50%; /* Make them perfectly round */
+  animation: bounce 0.6s infinite alternate; /* Apply bounce animation */
+  transition: background-color 0.3s ease;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s; /* Stagger the animation of the second dot */
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s; /* Stagger the animation of the third dot */
+}
+
+/* Keyframes for the bounce animation */
+@keyframes bounce {
+  from {
+    transform: translateY(0); /* Start at original position */
+  }
+  to {
+    transform: translateY(-5px); /* Move up 5px */
+  }
+}

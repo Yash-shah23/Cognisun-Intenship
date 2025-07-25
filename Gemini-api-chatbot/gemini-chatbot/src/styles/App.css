@@ -1,0 +1,155 @@
+/* src/styles/App.css */
+@import './variables.css'; /* Make sure this is at the top */
+
+/* Global body and root styles for full-screen layout */
+html, body, #root {
+  height: 100%; /* Ensure html, body, and root div take full height */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent body scroll if content overflows the app-container */
+  
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: var(--bg-); /* Uses variable */
+  display: flex; /* Make body a flex container */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  color: var(--text-dark); /* Uses variable */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--app-bg); /* Uses variable */
+  border-radius: 12px;
+  box-shadow: 0 8px 25px var(--shadow-medium); /* Uses variable */
+  width: 95%; /* Start with 95% width */
+  max-width: 700px; /* Max width for larger screens */
+  min-height: 60vh; /* Minimum height for the chat window on desktop */
+  height: calc(100vh - 40px); /* Fill most of the viewport height, leaving some margin */
+  overflow: hidden; /* Contains children's overflow */
+  margin: var(--spacing-md) auto; /* Top/bottom margin, auto left/right for centering */
+  position: relative;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+}
+
+h1 {
+  /* No longer strictly needed if the title is in the header, but kept for general H1 use */
+  color: var(--text-dark);
+  margin: var(--spacing-lg) 0 var(--spacing-md);
+  font-size: var(--font-size-large);
+  font-weight: 500;
+  text-align: center;
+}
+
+.chat-header {
+  width: 95%;
+  padding: var(--spacing-md);
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  font-size: var(--font-size-large);
+  font-weight: 500;
+  box-shadow: 0 2px 5px var(--shadow-light);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  flex-shrink: 0; /* Prevent header from shrinking */
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+
+  /* --- ALIGNMENT IMPROVEMENTS START HERE --- */
+  display: flex; /* Make it a flex container */
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Distribute space between items (logo/title and toggle) */
+  padding-left: var(--spacing-lg); /* More padding on the left */
+  padding-right: var(--spacing-md); /* Keep existing padding on the right for toggle */
+}
+
+/* Style for the text part of the header, to keep it centered or group with logo */
+.chat-header-title {
+  display: flex; /* Make the title group a flex container */
+  align-items: center; /* Vertically align logo and text */
+  flex-grow: 1; /* Allow it to take up available space */
+  justify-content: center; /* Center the content within itself */
+  margin-left: var(--spacing-md); /* Add some margin to the left for better spacing from left edge */
+}
+
+.chat-header-title img { /* Assuming you'll add an img for a logo */
+  height: 30px; /* Adjust logo size */
+  margin-right: var(--spacing-sm); /* Space between logo and text */
+}
+
+.chat-header-title span {
+  /* Style for the text "Gemini Chatbot" */
+  white-space: nowrap; /* Prevent text from wrapping if too long */
+}
+/* --- ALIGNMENT IMPROVEMENTS END HERE --- */
+
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-grow: 1; /* This is crucial: makes the chat container fill available vertical space */
+  border-top: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-button {
+  background: none;
+  border: none;
+  color: var(--header-text);
+  cursor: pointer;
+  font-size: 1.5em;
+  padding: 0; /* Remove default button padding */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+  /* margin-left: auto; -- Removed as justify-content: space-between handles this */
+}
+
+.theme-toggle-button:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  body {
+    align-items: flex-start; /* Align app to top on smaller screens */
+  }
+  .app-container {
+    width: 100%;
+    height: 100vh; /* Full viewport height on small screens */
+    min-height: 100vh; /* Ensure it stays full height */
+    margin: 0; /* Remove margins */
+    border-radius: 0; /* Full screen on small devices */
+    box-shadow: none; /* No shadow on full screen */
+  }
+  .chat-header {
+    border-radius: 0;
+  }
+  .chat-header-title {
+    margin-left: 0; /* Remove extra margin on small screens */
+  }
+}
+
+/* You might want a slightly smaller font size on very small screens */
+@media (max-width: 480px) {
+  body {
+    font-size: 0.9em; /* Slightly smaller base font */
+  }
+  .message-input-form button {
+    padding: var(--spacing-sm); /* Smaller padding for button */
+    min-width: unset; /* Let button size dynamically */
+  }
+  .chat-header {
+    padding-left: var(--spacing-md); /* Adjust padding for smaller screens */
+  }
+  .chat-header-title span {
+    font-size: var(--font-size-base); /* Ensure title fits */
+  }
+}

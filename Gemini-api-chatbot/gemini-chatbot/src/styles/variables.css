@@ -1,0 +1,84 @@
+/* src/styles/variables.css */
+
+:root {
+  /* --- Light Mode Defaults (Applied when body does NOT have .dark-mode class) --- */
+
+  /* Primary Brand Colors (e.g., Google's color palette) */
+  --primary-color: #4285F4; /* Google Blue - often used for buttons, headers */
+  --secondary-color: #34A853; /* Google Green */
+  --accent-color: #FBBC05; /* Google Yellow */
+  --error-color: #EA4335;  /* Google Red - for errors or warnings */
+
+  /* Background Colors */
+  --bg-light: #f0f2f5; /* Very light gray for general body background */
+  --bg-dark: #e6e9ee; /* Slightly darker light gray, often for chat window background */
+
+  /* Text Colors */
+  --text-dark: #333; /* Dark gray for primary text */
+  --text-light: #fff; /* White for text on dark backgrounds (e.g., buttons, headers) */
+
+  /* Border and Shadow Colors */
+  --border-color: #ddd; /* Light gray for borders */
+  --shadow-light: rgba(0, 0, 0, 0.1); /* Subtle shadow for elements */
+  --shadow-medium: rgba(0, 0, 0, 0.15); /* Stronger shadow for main container */
+
+  /* Component-Specific Colors (derived from above or custom) */
+  --app-bg: var(--bot-message-bg); /* Main application container background (white by default) */
+  --header-bg: var(--primary-color); /* Chat header background */
+  --header-text: var(--text-light); /* Chat header text color */
+  --chat-window-bg: var(--bg-dark); /* Background for the scrollable chat message area */
+  --user-message-bg: #dcf8c6; /* Light green for user's message bubbles */
+  --bot-message-bg: #ffffff; /* White for bot's message bubbles */
+  --input-bg: var(--bot-message-bg); /* Background for the message input area */
+  --input-border: var(--border-color); /* Border for the message input field */
+  --button-bg: var(--primary-color); /* Background for send button */
+  --button-text: var(--text-light); /* Text color for send button */
+
+  /* --- Font Definitions --- */
+  --font-family-sans: 'Roboto', 'Helvetica Neue', Arial, sans-serif; /* Preferred sans-serif font stack */
+  --font-size-base: 16px; /* Base font size for general text */
+  --font-size-small: 0.9em; /* Smaller font size (e.g., for code, secondary text) */
+  --font-size-large: 1.2em; /* Larger font size (e.g., for headings) */
+
+  /* --- Spacing Definitions --- */
+  --spacing-xs: 5px;  /* Extra small spacing */
+  --spacing-sm: 10px; /* Small spacing */
+  --spacing-md: 15px; /* Medium spacing */
+  --spacing-lg: 20px; /* Large spacing */
+}
+
+/* --- Dark Mode Overrides (Applied when body has .dark-mode class) --- */
+/* These rules will override the default variables when dark mode is active,
+   creating the dark theme effect. */
+body.dark-mode {
+  /* Primary Brand Colors (adjusted for dark backgrounds, often lighter tones) */
+  --primary-color: #8ab4f8; /* Lighter blue for dark mode */
+  --secondary-color: #81c995;
+  --accent-color: #fdd663;
+  --error-color: #f28b82;
+
+  /* Background Colors (darker shades) */
+  --bg-light: #202124; /* Dark gray for general body background */
+  --bg-dark: #2c2d30; /* Even darker gray, often for chat window background */
+
+  /* Text Colors (lighter shades for readability on dark backgrounds) */
+  --text-dark: #e8eaed; /* Light gray for primary text */
+  --text-light: #202124; /* Dark text (used where a lighter color was previously primary) */
+
+  /* Border and Shadow Colors (adjusted for dark mode visibility) */
+  --border-color: #5f6368; /* Darker border color */
+  --shadow-light: rgba(0, 0, 0, 0.3); /* Slightly more prominent shadow in dark mode */
+  --shadow-medium: rgba(0, 0, 0, 0.5); /* Stronger shadow for main container in dark mode */
+
+  /* Component-Specific Colors (derived or custom for dark mode) */
+  --app-bg: #2c2d30; /* Dark background for the app container */
+  --header-bg: #1c1d20; /* Even darker header background */
+  --header-text: var(--primary-color); /* Header text takes on a lighter primary color */
+  --chat-window-bg: #202124; /* Deep dark background for the chat message area */
+  --user-message-bg: #42454a; /* Darker bubble for user messages */
+  --bot-message-bg: #323337; /* Darker bubble for bot messages */
+  --input-bg: #323337; /* Dark background for message input area */
+  --input-border: #5f6368; /* Darker border for input field */
+  --button-bg: var(--primary-color); /* Button background uses the lighter primary color */
+  --button-text: var(--text-light); /* Button text takes on the dark text color */
+}

@@ -1,0 +1,4 @@
+Gemma is a family of open-source language models developed by Google.
+LangChain helps build LLM-powered apps by combining tools and models.
+Ollama allows running models like Gemma locally via a REST API.
+This project uses FAISS and HuggingFace for embedding and retrieval.

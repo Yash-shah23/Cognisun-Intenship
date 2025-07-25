@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+langchain
+langchain_community
+langchain_core
+langchain_huggingface
+langchain_ollama
+sentence_transformers
+unstructured
+python-multipart
+pandas

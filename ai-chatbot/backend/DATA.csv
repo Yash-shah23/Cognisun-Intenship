@@ -1,0 +1,40 @@
+Name,Age,Gender,Blood Type,Medical Condition,Date of Admission,Doctor,Hospital,Insurance Provider,Billing Amount,Room Number,Admission Type,Discharge Date,Medication,Test Results
+Sahil,30,Male,B-,Cancer,2024-09-28,Matthew Smith,Sons And Miller,Blue Cross,18856.28,328,Urgent,8866475052,Paracetamol,Normal
+Smit,62,Male,A+,Obesity,2024-10-09,Samantha Davies,Kim Inc,Medicare,33643.33,265,Emergency,8866475052,Ibuprofen,Inconclusive
+Riya,25,Female,O+,Asthma,2024-07-05,Dr. John Miller,Hope Hospital,Aetna,12345.5,101,Planned,2024-07-15,Albuterol,Normal
+Raj,45,Male,Ab-,Diabetes,2024-06-02,Dr. Lisa Wong,City Care,Cigna,23456.75,204,Urgent,2024-06-12,Insulin,High
+Neha,33,Female,B+,Hypertension,2024-05-10,Dr. James Lee,Metro Hospital,Unitedhealth,19876.0,305,Planned,2024-05-20,Atenolol,Normal
+Manav,55,Male,A-,Heart Disease,2024-04-18,Dr. Priya Nair,Apollo Clinic,Blue Cross,31200.45,150,Emergency,2024-04-28,Aspirin,Elevated
+Isha,29,Female,O-,Migraine,2024-03-22,Dr. Henry Zhao,Sunshine Medical,Medicare,14500.6,122,Urgent,2024-03-30,Sumatriptan,Normal
+Aarav,40,Male,Ab+,Liver Disease,2024-02-12,Dr. Maria Khan,Heal & Care,Cigna,27689.8,189,Planned,2024-02-22,Lactulose,Abnormal
+Divya,37,Female,B-,Arthritis,2024-01-03,Dr. Susan Clark,Lifeline Hospital,Aetna,20987.1,210,Urgent,2024-01-13,Ibuprofen,Normal
+Yash,60,Male,A+,Cancer,2023-12-28,Dr. John Miller,Hope Hospital,Blue Cross,44567.9,315,Emergency,2024-01-07,Cisplatin,Abnormal
+Meena,48,Female,O+,Kidney Stones,2023-11-06,Dr. Lisa Wong,City Care,Medicare,16890.4,167,Planned,2023-11-16,Tamsulosin,Normal
+Ronit,35,Male,B+,Asthma,2023-10-19,Dr. James Lee,Metro Hospital,Cigna,18765.25,198,Urgent,2023-10-29,Salbutamol,Normal
+Kavya,28,Female,A-,Obesity,2023-09-04,Dr. Priya Nair,Apollo Clinic,Unitedhealth,13200.33,142,Planned,2023-09-14,Orlistat,Inconclusive
+Veer,32,Male,O-,Back Pain,2023-08-23,Dr. Henry Zhao,Sunshine Medical,Aetna,15567.45,155,Urgent,2023-09-02,Paracetamol,Normal
+Jaya,38,Female,Ab+,Fracture,2023-07-15,Dr. Maria Khan,Heal & Care,Blue Cross,26789.5,180,Emergency,2023-07-25,Diclofenac,Normal
+Rishi,29,Male,B-,Anxiety,2023-06-11,Dr. Susan Clark,Lifeline Hospital,Cigna,14456.7,120,Planned,2023-06-21,Sertraline,Improved
+Tina,51,Female,A+,Arthritis,2023-05-27,Dr. John Miller,Hope Hospital,Medicare,21400.9,134,Urgent,2023-06-06,Naproxen,Elevated
+Naman,43,Male,O+,Migraine,2023-04-09,Dr. Lisa Wong,City Care,Aetna,17678.4,146,Planned,2023-04-19,Ergotamine,Normal
+Kriti,31,Female,Ab-,Thyroid,2023-03-03,Dr. James Lee,Metro Hospital,Cigna,15870.8,198,Urgent,2023-03-13,Levothyroxine,Stable
+Anil,59,Male,B+,Diabetes,2023-02-18,Dr. Priya Nair,Apollo Clinic,Unitedhealth,24500.0,232,Emergency,2023-02-28,Insulin,High
+Pooja,27,Female,A-,Pregnancy,2023-01-06,Dr. Henry Zhao,Sunshine Medical,Blue Cross,18900.45,118,Planned,2023-01-16,Iron Supplement,Normal
+Aman,36,Male,O-,Allergy,2022-12-30,Dr. Maria Khan,Heal & Care,Medicare,14300.33,140,Urgent,2023-01-09,Loratadine,Improved
+Sonal,42,Female,Ab+,Heart Disease,2022-11-15,Dr. Susan Clark,Lifeline Hospital,Cigna,30000.0,230,Emergency,2022-11-25,Atorvastatin,Elevated
+Karan,50,Male,B-,Hypertension,2022-10-08,Dr. John Miller,Hope Hospital,Aetna,21789.7,178,Planned,2022-10-18,Lisinopril,Normal
+Nisha,34,Female,A+,Back Pain,2022-09-25,Dr. Lisa Wong,City Care,Blue Cross,16400.2,159,Urgent,2022-10-05,Ibuprofen,Normal
+Arjun,46,Male,O+,Thyroid,2022-08-13,Dr. James Lee,Metro Hospital,Medicare,17890.9,176,Planned,2022-08-23,Levothyroxine,Normal
+Rhea,30,Female,Ab-,Asthma,2022-07-01,Dr. Priya Nair,Apollo Clinic,Cigna,14567.6,124,Urgent,2022-07-11,Salbutamol,Normal
+Deep,52,Male,B+,Cancer,2022-06-20,Dr. Henry Zhao,Sunshine Medical,Unitedhealth,38900.5,299,Emergency,2022-06-30,Cisplatin,Abnormal
+Sana,39,Female,A-,Obesity,2022-05-10,Dr. Maria Khan,Heal & Care,Aetna,16900.75,165,Planned,2022-05-20,Orlistat,Inconclusive
+Dev,44,Male,O-,Liver Disease,2022-04-02,Dr. Susan Clark,Lifeline Hospital,Cigna,27300.4,188,Urgent,2022-04-12,Lactulose,Abnormal
+Nina,26,Female,Ab+,Fracture,2022-03-22,Dr. John Miller,Hope Hospital,Medicare,25600.1,153,Emergency,2022-04-01,Calcium,Normal
+Vishal,58,Male,B-,Hypertension,2022-02-12,Dr. Lisa Wong,City Care,Blue Cross,20987.65,208,Planned,2022-02-22,Lisinopril,Normal
+Tara,35,Female,A+,Diabetes,2022-01-03,Dr. James Lee,Metro Hospital,Unitedhealth,19800.3,174,Urgent,2022-01-13,Insulin,High
+Kabir,41,Male,O+,Migraine,2021-12-28,Dr. Priya Nair,Apollo Clinic,Cigna,16800.9,166,Planned,2022-01-07,Sumatriptan,Normal
+Aarti,33,Female,Ab-,Thyroid,2021-11-14,Dr. Henry Zhao,Sunshine Medical,Medicare,15860.25,193,Urgent,2021-11-24,Levothyroxine,Stable
+Ronak,53,Male,B+,Kidney Stones,2021-10-01,Dr. Maria Khan,Heal & Care,Aetna,18990.7,207,Planned,2021-10-11,Tamsulosin,Normal
+Jinal,45,Female,A-,Arthritis,2021-09-19,Dr. Susan Clark,Lifeline Hospital,Blue Cross,21456.4,214,Urgent,2021-09-29,Naproxen,Elevated
+Jay,38,Male,O-,Anxiety,2021-08-05,Dr. John Miller,Hope Hospital,Unitedhealth,17400.85,182,Planned,2021-08-15,Sertraline,Improved
+Tanya,29,Female,Ab+,Obesity,2021-07-27,Dr. Lisa Wong,City Care,Medicare,16600.9,148,Urgent,2021-08-06,Orlistat,Inconclusive
