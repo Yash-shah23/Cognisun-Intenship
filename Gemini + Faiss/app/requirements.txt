@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+langchain
+langchain-community
+langchainhub
+langchain-openai
+sentence-transformers
+gTTS
+deep-translator
+python-dotenv
