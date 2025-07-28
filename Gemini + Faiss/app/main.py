@@ -8,22 +8,19 @@ from utils.translation import translate, detect_language
 from utils.speech import speech_to_text
 from rag_chain import get_rag_response
 
-# ✅ Load environment variables securely
 load_dotenv()
-
 app = FastAPI(title="RAG Chatbot API", version="1.0")
 
-# ✅ Enable CORS for frontend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change to specific domain in production
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ✅ Request models
 class Query(BaseModel):
     query: str
+    selected_lang: str = "en"  # Force language selection
 
 class TextData(BaseModel):
     text: str
@@ -32,27 +29,25 @@ class TextData(BaseModel):
 @app.post("/ask")
 async def ask(data: Query):
     """
-    Handles multilingual questions, translates them to English,
-    retrieves answers using RAG, and translates the final response
-    back to the user's language.
+    Multilingual RAG chatbot.
+    - Always processes in English internally.
+    - Translates the final response to selected language (default: English).
     """
+    # Detect spoken language (for info) but respect selected_lang
+    
+    target_lang = data.selected_lang if data.selected_lang else "en"
 
-    # Detect the input language
-    detected_lang = detect_language(data.query)
-
-    # Translate question to English for RAG processing
+    # Translate input → English → RAG processing
     translated_query = translate(data.query, target_lang="en")
-
-    # Get AI response (includes greetings & basic chat)
     english_answer = get_rag_response(translated_query)
 
-    # Translate answer back to user's language if needed
+    # Translate final answer → selected language
     final_answer = (
-        english_answer if detected_lang == "en"
-        else translate(english_answer, target_lang=detected_lang)
+        english_answer if target_lang == "en"
+        else translate(english_answer, target_lang=target_lang)
     )
 
-    return JSONResponse(content={"answer": final_answer, "lang": detected_lang})
+    return JSONResponse(content={"answer": final_answer, "lang": target_lang})
 
 
 @app.post("/speech-to-text")

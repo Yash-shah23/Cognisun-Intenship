@@ -13,7 +13,16 @@ function App() {
   const [recording, setRecording] = useState(false);
   const [speechLang, setSpeechLang] = useState("en-US"); // ✅ Default English
   const recognitionRef = useRef(null);
+  const chatBoxRef = useRef(null);
 
+  // ✅ Auto-scroll to latest message
+  useEffect(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  // ✅ Initialize speech recognition
   useEffect(() => {
     if ("webkitSpeechRecognition" in window) {
       const recognition = new window.webkitSpeechRecognition();
@@ -40,9 +49,10 @@ function App() {
     }
   }, []);
 
+  // ✅ Start/stop recording
   const handleSpeech = () => {
     if (recognitionRef.current) {
-      recognitionRef.current.lang = speechLang; // ✅ Use selected language
+      recognitionRef.current.lang = speechLang;
       if (!recording) {
         setRecording(true);
         recognitionRef.current.start();
@@ -53,13 +63,17 @@ function App() {
     }
   };
 
+  // ✅ Send message to backend
   const sendMessage = async () => {
     if (!query.trim()) return;
     setLoading(true);
     try {
-      const res = await axios.post(`${API_URL}/ask`, { query });
+      const res = await axios.post(`${API_URL}/ask`, { 
+        query, 
+        selected_lang: speechLang.startsWith("hi") ? "hi" : speechLang.startsWith("gu") ? "gu" : "en"
+      });
       const answer = res.data.answer;
-      const isOutOfContext = /cannot answer|out of context|no information/i.test(res.data.answer);
+      const isOutOfContext = /cannot answer|out of context|no information/i.test(answer);
 
       setMessages((prev) => [
         ...prev,
@@ -80,7 +94,6 @@ function App() {
       
       {/* ✅ Language selection buttons */}
       <div className="lang-buttons">
-        
         <button onClick={() => setSpeechLang("en-US")} className={speechLang === "en-US" ? "active" : ""}>
           English
         </button>
@@ -92,7 +105,7 @@ function App() {
         </button>
       </div>
 
-      <div className="chat-box">
+      <div className="chat-box" ref={chatBoxRef}>
         {messages.map((msg, i) => (
           <div key={i} className="chat-message">
             <div className="chat-question">Q: {msg.question}</div>
@@ -101,7 +114,7 @@ function App() {
             </div>
           </div>
         ))}
-        {loading && <div className="loading">Thinking...</div>}
+        {loading && <div className="loading">BotThinking...</div>}
       </div>
 
       <div className="input-container">

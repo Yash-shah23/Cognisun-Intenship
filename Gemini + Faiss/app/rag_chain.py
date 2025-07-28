@@ -40,7 +40,7 @@ def embed_documents_once():
             documents.extend(loader.load())
 
     # ✅ Split documents into smaller chunks for better retrieval
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=250)
     texts = splitter.split_documents(documents)
 
     # ✅ Generate embeddings using HuggingFace model
@@ -69,14 +69,13 @@ def get_rag_response(query: str) -> str:
     # ✅ Create retriever for searching similar document chunks
     retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
 
-  
-
     # ✅ Strict prompt to avoid hallucinations
     prompt = PromptTemplate(
         template=(
             "You are an AI assistant.\n"
             "Use ONLY the provided context to answer.\n"
-            "If no relevant context is found, still try to respond politely or give a basic greeting.\n\n"
+            "If the context is not relevant to the question, "
+            "reply exactly with: 'I cannot answer this question based on the provided document.'\n\n"
             "Context:\n{context}\n\nQuestion: {question}\nAnswer:"
         ),
         input_variables=["context", "question"]
@@ -84,7 +83,7 @@ def get_rag_response(query: str) -> str:
 
     # ✅ Create RetrievalQA chain with prompt
     qa_chain = RetrievalQA.from_chain_type(
-        llm=ChatGroq(model="llama3-8b-8192", temperature=0), # Use Groq's LLaMA3 model
+        llm=ChatGroq(model="llama3-8b-8192", temperature=0),
         retriever=retriever,
         chain_type_kwargs={"prompt": prompt}
     )
