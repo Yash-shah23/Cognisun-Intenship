@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.pyc
+
+# Environment
+.env
+enviournment/
+venv/
+.env.local
+*.pem
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Node
+node_modules/
+build/
+dist/
+
+# FAISS Vectorstore
+vectorstore/
+*.faiss
