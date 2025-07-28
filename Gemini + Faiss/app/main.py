@@ -1,34 +1,60 @@
-# app/main.py
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-import logging
-from app.rag_chain import get_rag_response
+from fastapi.responses import JSONResponse
+import os
 from dotenv import load_dotenv
-load_dotenv()
-import os 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from utils.translation import translate, detect_language
+from utils.speech import speech_to_text
+from rag_chain import get_rag_response
 
+load_dotenv()
 app = FastAPI()
 
-# Allow CORS from frontend (React)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Or ["http://localhost:3000"]
-    allow_credentials=True,
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-class QueryRequest(BaseModel):
+class Query(BaseModel):
     query: str
-    lang: str = "en"
+
+class TextData(BaseModel):
+    text: str
 
 @app.post("/ask")
-async def ask(request: QueryRequest):
-    logger.info("✅ Received /ask POST request")
-    logger.info(f"➡️ Query: {request.query}, Lang: {request.lang}")
-    answer = get_rag_response(request.query, request.lang)
-    logger.info(f"✅ Answer: {answer}")
-    return {"answer": answer}
+async def ask(data: Query):
+    detected_lang = detect_language(data.query)
+    translated_query = translate(data.query, target_lang="en")
+    english_answer = get_rag_response(translated_query)
+    final_answer = (
+        english_answer if detected_lang == "en"
+        else translate(english_answer, target_lang=detected_lang)
+    )
+    return JSONResponse(content={"answer": final_answer, "lang": detected_lang})
+
+@app.post("/speech-to-text")
+async def convert_speech(file: UploadFile = File(...)):
+    audio_path = f"temp_{file.filename}"
+    with open(audio_path, "wb") as f:
+        f.write(await file.read())
+
+    try:
+        text = speech_to_text(audio_path)
+    finally:
+        os.remove(audio_path)
+
+    return JSONResponse(content={"text": text})
+
+@app.post("/detect-and-translate")
+async def detect_and_translate(data: TextData):
+    text = data.text
+    detected_lang = detect_language(text)
+    corrected_text = (
+        translate(text, target_lang=detected_lang)
+        if detected_lang != "en"
+        else text
+    )
+    return JSONResponse(content={"corrected_text": corrected_text, "lang": detected_lang})
