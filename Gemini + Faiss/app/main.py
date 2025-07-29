@@ -1,16 +1,21 @@
-from fastapi import FastAPI, UploadFile, File
-from pydantic import BaseModel
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import os
 from dotenv import load_dotenv
+from bson import ObjectId
+from bson.errors import InvalidId
+from datetime import datetime
+from db import sessions
 from utils.translation import translate, detect_language
 from utils.speech import speech_to_text
 from rag_chain import get_rag_response
+from models import Query, TextData, RenameRequest, Message
 
 load_dotenv()
 app = FastAPI(title="RAG Chatbot API", version="1.0")
 
+# ✅ Enable CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,48 +23,126 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class Query(BaseModel):
-    query: str
-    selected_lang: str = "en"  # Force language selection
+# ✅ Create a new chat session
+@app.post("/create-session")
+async def create_session():
+    session = {
+        "created_at": datetime.utcnow(),
+        "messages": [],
+        "session_name": "New Chat",
+        "is_deleted": False
+    }
+    inserted = sessions.insert_one(session)
+    return JSONResponse(content={"id": str(inserted.inserted_id)})
 
-class TextData(BaseModel):
-    text: str
+@app.put("/delete-session/{session_id}")
+async def delete_session(session_id: str):
+    """Soft-delete a session."""
+    try:
+        session_obj_id = ObjectId(session_id)
+    except InvalidId:
+        raise HTTPException(status_code=400, detail="Invalid session ID")
 
-
-@app.post("/ask")
-async def ask(data: Query):
-    """
-    Multilingual RAG chatbot.
-    - Always processes in English internally.
-    - Translates the final response to selected language (default: English).
-    """
-    # Detect spoken language (for info) but respect selected_lang
-    
-    target_lang = data.selected_lang if data.selected_lang else "en"
-
-    # Translate input → English → RAG processing
-    translated_query = translate(data.query, target_lang="en")
-    english_answer = get_rag_response(translated_query)
-
-    # Translate final answer → selected language
-    final_answer = (
-        english_answer if target_lang == "en"
-        else translate(english_answer, target_lang=target_lang)
+    result = sessions.update_one(
+        {"_id": session_obj_id, "is_deleted": False},
+        {"$set": {"is_deleted": True}}
     )
 
-    return JSONResponse(content={"answer": final_answer, "lang": target_lang})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Session not found or already deleted")
+
+    return JSONResponse(content={"message": "Session deleted successfully"})
 
 
+@app.put("/rename-session/{session_id}")
+async def rename_session(session_id: str, body: RenameRequest):
+    """Rename a session."""
+    try:
+        session_obj_id = ObjectId(session_id)
+    except InvalidId:
+        raise HTTPException(status_code=400, detail="Invalid session ID")
+
+    result = sessions.update_one(
+        {"_id": session_obj_id, "is_deleted": False},
+        {"$set": {"session_name": body.new_name}}
+    )
+
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Session not found or deleted")
+
+    return JSONResponse(content={"message": "Session renamed successfully"})
+
+
+# ✅ Get all messages of a session
+@app.get("/session/{session_id}")
+async def get_session_messages(session_id: str):
+    try:
+        session = sessions.find_one({"_id": ObjectId(session_id), "is_deleted": False})
+        if not session:
+            raise HTTPException(status_code=404, detail="Session not found")
+
+        messages = session.get("messages", [])
+        for msg in messages:
+            if "timestamp" in msg:
+                msg["timestamp"] = msg["timestamp"].isoformat()
+
+        return JSONResponse(content={"messages": messages})
+    except InvalidId:
+        raise HTTPException(status_code=400, detail="Invalid session ID")
+
+# ✅ Get all active sessions
+@app.get("/sessions")
+async def get_all_sessions():
+    sessions_list = []
+    for s in sessions.find({"is_deleted": False}):
+        sessions_list.append({
+            "id": str(s["_id"]),
+            "name": s.get("session_name", "New Chat"),
+            "created_at": s.get("created_at", datetime.utcnow()).strftime("%Y-%m-%d %H:%M:%S")
+        })
+    return JSONResponse(content=sessions_list)
+
+# ✅ Main chatbot endpoint (multilingual, RAG)
+@app.post("/ask")
+async def ask(data: Query):
+    try:
+        session_obj_id = ObjectId(data.session_id)
+    except InvalidId:
+        raise HTTPException(status_code=400, detail="Invalid session ID")
+
+    session = sessions.find_one({"_id": session_obj_id, "is_deleted": False})
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    # Translate question to English
+    target_lang = data.selected_lang or "en"
+    translated_query = translate(data.query, target_lang="en")
+    english_answer = get_rag_response(translated_query, session_id=data.session_id)
+
+    final_answer = english_answer  # Always reply in English
+
+    # ✅ Save messages using centralized model
+    user_msg = Message(role="user", text=data.query).dict()
+    bot_msg = Message(role="bot", text=final_answer).dict()
+
+    user_msg["timestamp"] = datetime.utcnow()
+    bot_msg["timestamp"] = datetime.utcnow()
+
+    sessions.update_one({"_id": session_obj_id}, {"$push": {"messages": user_msg}})
+    sessions.update_one({"_id": session_obj_id}, {"$push": {"messages": bot_msg}})
+
+    return JSONResponse(content={
+        "answer": final_answer,
+        "lang": target_lang,
+        "session_id": data.session_id
+    })
+
+# ✅ Speech-to-text conversion
 @app.post("/speech-to-text")
 async def convert_speech(file: UploadFile = File(...)):
-    """
-    Converts uploaded speech audio into text using speech recognition.
-    """
     audio_path = f"temp_{file.filename}"
-    
     with open(audio_path, "wb") as f:
         f.write(await file.read())
-
     try:
         text = speech_to_text(audio_path)
     finally:
@@ -67,20 +150,9 @@ async def convert_speech(file: UploadFile = File(...)):
 
     return JSONResponse(content={"text": text})
 
-
+# ✅ Detect language and auto-translate
 @app.post("/detect-and-translate")
 async def detect_and_translate(data: TextData):
-    """
-    Detects the language of provided text and ensures proper translation
-    before displaying it in the input box.
-    """
-    text = data.text
-    detected_lang = detect_language(text)
-    
-    corrected_text = (
-        translate(text, target_lang=detected_lang)
-        if detected_lang != "en"
-        else text
-    )
-
+    detected_lang = detect_language(data.text)
+    corrected_text = translate(data.text, target_lang=detected_lang) if detected_lang != "en" else data.text
     return JSONResponse(content={"corrected_text": corrected_text, "lang": detected_lang})
