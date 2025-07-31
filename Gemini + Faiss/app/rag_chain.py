@@ -1,19 +1,17 @@
 import os
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain.chains import RetrievalQA
-from langchain_groq import ChatGroq
-from langchain.prompts import PromptTemplate
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.memory import ConversationBufferMemory
+from langchain_community.document_loaders import PyPDFLoader # Used to load PDF documents
+from langchain_community.vectorstores import FAISS # FAISS for storing and retrieving embeddings
+from langchain_huggingface import HuggingFaceEmbeddings # HuggingFace model for generating embeddings
+from langchain.chains import RetrievalQA # High-level chain for question answering
+from langchain_groq import ChatGroq # Groq's LLM integration
+from langchain.prompts import PromptTemplate # Used to create custom prompts
+from langchain.text_splitter import RecursiveCharacterTextSplitter # Splits large text into smaller chunks
 from bson import ObjectId
 from db import sessions
 from config import DATA_PATH, VECTORSTORE_DIR, VECTORSTORE_PATH, EMBEDDING_MODEL
 
 # Cache FAISS index and memory
 vectorstore = None
-memory_dict = {}
 
 def embed_documents_once():
     """
@@ -50,23 +48,6 @@ def embed_documents_once():
 
 # ✅ Initialize FAISS once
 vectorstore = embed_documents_once()
-
-def get_memory(session_id: str):
-    """Retrieve or initialize session memory."""
-    if session_id not in memory_dict:
-        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-
-        session = sessions.find_one({"_id": ObjectId(session_id)})
-        if session and "messages" in session:
-            for msg in session["messages"]:
-                if msg["role"] == "user":
-                    memory.chat_memory.add_user_message(msg["text"])
-                elif msg["role"] == "bot":
-                    memory.chat_memory.add_ai_message(msg["text"])
-
-        memory_dict[session_id] = memory
-
-    return memory_dict[session_id]
 
 def get_rag_response(query: str, session_id: str) -> str:
     """Retrieve context-aware answer using FAISS + Groq LLM."""

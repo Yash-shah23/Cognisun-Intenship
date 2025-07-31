@@ -14,3 +14,5 @@ faiss-cpu
 deep-translator
 python-dotenv
 pydantic
+SpeechRecognition #For speech to text  
+py

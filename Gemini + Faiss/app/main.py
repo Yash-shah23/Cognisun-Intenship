@@ -102,7 +102,6 @@ async def get_all_sessions():
         })
     return JSONResponse(content=sessions_list)
 
-# ✅ Main chatbot endpoint (multilingual, RAG)
 @app.post("/ask")
 async def ask(data: Query):
     try:
@@ -114,14 +113,20 @@ async def ask(data: Query):
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
 
-    # Translate question to English
-    target_lang = data.selected_lang or "en"
+    # ✅ Translate question → English for model understanding
     translated_query = translate(data.query, target_lang="en")
+    
+    # ✅ Get English answer from RAG
     english_answer = get_rag_response(translated_query, session_id=data.session_id)
 
-    final_answer = english_answer  # Always reply in English
+    # ✅ Translate bot's answer back to user's selected language
+    final_answer = (
+        translate(english_answer, target_lang=data.selected_lang)
+        if data.selected_lang and data.selected_lang != "en"
+        else english_answer
+    )
 
-    # ✅ Save messages using centralized model
+    # ✅ Save messages
     user_msg = Message(role="user", text=data.query).dict()
     bot_msg = Message(role="bot", text=final_answer).dict()
 
@@ -133,9 +138,10 @@ async def ask(data: Query):
 
     return JSONResponse(content={
         "answer": final_answer,
-        "lang": target_lang,
+        "lang": data.selected_lang,
         "session_id": data.session_id
     })
+
 
 # ✅ Speech-to-text conversion
 @app.post("/speech-to-text")

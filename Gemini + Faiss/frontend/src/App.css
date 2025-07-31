@@ -188,3 +188,24 @@ button:hover {
   background: grey;
   margin-bottom: 20px;
 }
+
+
+.chat-answer table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.chat-answer th,
+.chat-answer td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  
+  text-align: left;
+}
+
+.chat-answer th {
+  color: #121212;
+  background: #f4f4f4;
+  font-weight: bold;
+}

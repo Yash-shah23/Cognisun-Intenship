@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { FaMicrophone, FaPlus, FaTrash, FaEdit } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
 import "./App.css";
 
 const API_URL = "http://127.0.0.1:8000";
@@ -69,39 +71,39 @@ function App() {
     }
   };
 
-const deleteSession = async (sessionId) => {
-  try {
-    await axios.put(`${API_URL}/delete-session/${sessionId}`);
-    await fetchSessions(); // refresh sessions
+  const deleteSession = async (sessionId) => {
+    try {
+      await axios.put(`${API_URL}/delete-session/${sessionId}`);
+      await fetchSessions(); // refresh sessions
 
-    if (selectedSessionId === sessionId) {
-      setMessages([]);
-      setSelectedSessionId(null);
+      if (selectedSessionId === sessionId) {
+        setMessages([]);
+        setSelectedSessionId(null);
 
-      // Auto-select first available session
-      const remaining = sessions.filter(s => s.id !== sessionId);
-      if (remaining.length > 0) {
-        setSelectedSessionId(remaining[0].id);
-        loadSessionMessages(remaining[0].id);
+        // Auto-select first available session
+        const remaining = sessions.filter(s => s.id !== sessionId);
+        if (remaining.length > 0) {
+          setSelectedSessionId(remaining[0].id);
+          loadSessionMessages(remaining[0].id);
+        }
       }
+    } catch (err) {
+      console.error("Failed to delete session:", err);
     }
-  } catch (err) {
-    console.error("Failed to delete session:", err);
-  }
-};
+  };
 
-const renameSession = async (sessionId) => {
-  const newName = prompt("Enter new session name:");
-  if (!newName) return;
-  try {
-    await axios.put(`${API_URL}/rename-session/${sessionId}`, {
-      new_name: newName, // ✅ fixed
-    });
-    await fetchSessions(); // refresh sidebar
-  } catch (err) {
-    console.error("Failed to rename session:", err);
-  }
-};
+  const renameSession = async (sessionId) => {
+    const newName = prompt("Enter new session name:");
+    if (!newName) return;
+    try {
+      await axios.put(`${API_URL}/rename-session/${sessionId}`, {
+        new_name: newName, // ✅ fixed
+      });
+      await fetchSessions(); // refresh sidebar
+    } catch (err) {
+      console.error("Failed to rename session:", err);
+    }
+  };
 
   // Speech recognition setup
   useEffect(() => {
@@ -142,8 +144,8 @@ const renameSession = async (sessionId) => {
           speechLang.startsWith("hi")
             ? "hi"
             : speechLang.startsWith("gu")
-            ? "gu"
-            : "en",
+              ? "gu"
+              : "en",
         session_id: selectedSessionId,
       });
       const answer = res.data.answer;
@@ -198,12 +200,14 @@ const renameSession = async (sessionId) => {
         </div>
 
         {/* Messages */}
-       <div className="chat-box" ref={chatBoxRef}>
+        <div className="chat-box" ref={chatBoxRef}>
           {messages.map((msg, i) => (
             <div key={i} className={`chat-message ${msg.role}`}>
               <div className={`chat-answer ${msg.outOfContext ? "out-of-context" : ""}`}>
                 <strong>{msg.role === "user" ? "You:" : "Bot:"}</strong>{" "}
-                <ReactMarkdown>{msg.text}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {msg.text}
+                </ReactMarkdown>
               </div>
             </div>
           ))}
