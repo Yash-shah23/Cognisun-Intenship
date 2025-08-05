@@ -1,9 +1,4 @@
 
----
-
-# **4️⃣ requirements.txt**
-
-```txt
 fastapi
 uvicorn
 langchain
@@ -14,5 +9,27 @@ faiss-cpu
 deep-translator
 python-dotenv
 pydantic
-SpeechRecognition #For speech to text  
-py
+SpeechRecognition 
+certifi
+pymongo
+
+# 🚀 FastAPI – framework for building high-performance REST APIs in Python
+# ⚡ ASGI server to run FastAPI apps (handles requests/responses)
+# 🔗 Main LangChain library – enables LLM pipelines for retrieval, chains, agents
+# 🌎 Community-supported modules for LangChain (document loaders, retrievers, etc.)
+#🤗 HuggingFace integration for embeddings & models in LangChain
+# 🧠 Groq LLM API integration for inference (used instead of OpenAI or Gemini)
+# 📚 Facebook AI Similarity Search – builds & searches vector indexes for RAG
+# 🌐 Language translation library (used for multilingual question handling)
+#🔑 Loads environment variables from a .env file (for API keys, DB URIs)
+# 📝 Data validation & settings management in FastAPI (for request/response models)
+# 🎙️ Converts speech-to-text (only needed if you have voice input support)
+# 🔒 Certificates for secure HTTPS requests (needed by some APIs)
+# 🛢️ Python driver for MongoDB (storing chat sessions & other data)
+
+
+
+# Futyre Enhancements:
+# if want to add word file use "python-docx" library
+# if want to add CSV or JSON file use "pandas " library
+

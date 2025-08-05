@@ -10,6 +10,16 @@ from bson import ObjectId
 from db import sessions
 from config import DATA_PATH, VECTORSTORE_DIR, VECTORSTORE_PATH, EMBEDDING_MODEL
 
+
+
+# from langchain_community.document_loaders import (
+#     PyPDFLoader, 
+#     CSVLoader,       # ✅ for CSV files
+#     JSONLoader,      # ✅ for JSON files
+#     UnstructuredWordDocumentLoader  # ✅ for Word files
+# )
+
+
 # Cache FAISS index and memory
 vectorstore = None
 
@@ -33,8 +43,20 @@ def embed_documents_once():
         if file.endswith(".pdf"):
             loader = PyPDFLoader(os.path.join(DATA_PATH, file))
             documents.extend(loader.load())
-#
-    splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=250)
+
+
+        # elif file.endswith(".csv"):
+        #     loader = CSVLoader(file_path)
+        # elif file.endswith(".json"):
+        #     loader = JSONLoader(file_path, jq_schema='.')  
+        # elif file.endswith(".docx") or file.endswith(".doc"):
+        #     loader = UnstructuredWordDocumentLoader(file_path)
+        # else:
+        #     print(f"⚠️ Unsupported file type: {file}. Skipping...")
+        #     continue  
+
+    
+    splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=400)
     texts = splitter.split_documents(documents)
 
     embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
@@ -53,21 +75,30 @@ def get_rag_response(query: str, session_id: str) -> str:
     """Retrieve context-aware answer using FAISS + Groq LLM."""
     print(f"📌 Generating RAG response for session: {session_id}")
 
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
+    retriever = vectorstore.as_retriever(
+        search_type="mmr",  # ✅ Avoids redundant chunks
+        search_kwargs={"k": 15, "fetch_k": 20}
+    )
 
     prompt = PromptTemplate(
         template=(
-            "You are an AI assistant.\n"
-            "Answer the question ONLY using the provided context.\n"
-            "If the context is not relevant, say exactly:\n"
-            "'I cannot answer this question based on the provided document.'\n\n"
-            "Context:\n{context}\n\nQuestion: {question}\nAnswer:"
+            "You are a professional AI assistant.\n\n"
+            "### Context:\n{context}\n\n"
+            "### Question:\n{question}\n\n"
+            "### Instructions:\n"
+            "- Answer **only** from the context.\n"
+            "- Combine related facts into a single, concise, well-structured answer.\n"
+            "- Use short paragraphs, bullet points, and **bold** for key info.\n"
+            "- If answer is missing, reply exactly:\n"
+            "⚠️ Sorry, but the provided content does not contain information about the question you asked.\n\n"
+            "### Answer:"
         ),
         input_variables=["context", "question"]
     )
 
+
     qa_chain = RetrievalQA.from_chain_type(
-        llm=ChatGroq(model="llama3-8b-8192", temperature=0),
+        llm=ChatGroq(model="llama3-70b-8192", temperature=0),
         retriever=retriever,
         chain_type_kwargs={"prompt": prompt}
     )
